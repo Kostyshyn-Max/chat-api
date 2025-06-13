@@ -8,15 +8,10 @@ namespace ChatApp.DataAccess.Entities;
 public class Chat : BaseEntity
 {
     [Column("user_1_id")]
-    [ForeignKey(nameof(User1))]
     public Guid User1Id { get; set; }
     
     [Column("user_2_id")]
-    [ForeignKey(nameof(User2))]
     public Guid User2Id { get; set; }
-    
-    public User User1 { get; set; } = null!;
-    public User User2 { get; set; } = null!;
     
     public ICollection<Message>? Messages { get; set; }
 }

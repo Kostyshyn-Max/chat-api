@@ -27,8 +27,6 @@ public class ChatRepository : AbstractRepository, IChatRepository
     public async Task<IEnumerable<Chat>> GetAllAsync()
     {
         return await _dbSet
-            .Include(c => c.User1)
-            .Include(c => c.User2)
             .Include(c => c.Messages)
             .ToListAsync();
     }
@@ -36,8 +34,6 @@ public class ChatRepository : AbstractRepository, IChatRepository
     public async Task<IEnumerable<Chat>> GetAllAsync(int pageNumber, int pageSize)
     {
         return await _dbSet
-            .Include(c => c.User1)
-            .Include(c => c.User2)
             .Include(c => c.Messages)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
@@ -47,8 +43,6 @@ public class ChatRepository : AbstractRepository, IChatRepository
     public async Task<IEnumerable<Chat>> GetAllAsync(Expression<Func<Chat, bool>> predicate)
     {
         return await _dbSet
-            .Include(c => c.User1)
-            .Include(c => c.User2)
             .Include(c => c.Messages)
             .Where(predicate)
             .ToListAsync();
@@ -57,8 +51,6 @@ public class ChatRepository : AbstractRepository, IChatRepository
     public async Task<Chat?> GetByIdAsync(Guid id)
     {
         return await _dbSet
-            .Include(c => c.User1)
-            .Include(c => c.User2)
             .Include(c => c.Messages)
             .FirstOrDefaultAsync(c => c.Id == id);
     }

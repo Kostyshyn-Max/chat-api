@@ -94,4 +94,29 @@ public class UserRepository : AbstractRepository, IUserRepository
             return false;
         }
     }
+
+    public async Task<string?> GetUserPasswordSaltAsync(string phoneNumber)
+    {
+        var user = await _dbSet.FirstOrDefaultAsync(u => u.PhoneNumber.Equals(phoneNumber));
+        return user?.PasswordSalt;
+    }
+
+    public async Task<User?> LoginAsync(string phoneNumber, string passwordHash)
+    {
+        var user = await _dbSet.FirstOrDefaultAsync(u => u.PhoneNumber.Equals(phoneNumber) && u.PasswordHash.Equals(passwordHash));
+        return user;
+    }
+
+    public async Task<bool> SetRefreshToken(Guid userId, string refreshToken, DateTime expireDate)
+    {
+        var user = await _dbSet.FindAsync(userId);
+        if (user is null)
+        {
+            return false;
+        }
+
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpireDate = expireDate;
+        return await UpdateAsync(user);
+    }
 }

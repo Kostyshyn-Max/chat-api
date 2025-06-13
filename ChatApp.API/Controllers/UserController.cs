@@ -55,13 +55,13 @@ public class UserController : ControllerBase
     [HttpPost]
     [Route("refresh")]
     [ProducesResponseType<UserTokenDataModel>(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<UserTokenDataModel>> RefreshTokenAsync([FromBody] UserTokenDataModel tokenModel)
     {
         var result = await _userService.RefreshTokenAsync(tokenModel);
         if (result is null)
         {
-            return Unauthorized();
+            return BadRequest();
         }
         
         return Ok(result);

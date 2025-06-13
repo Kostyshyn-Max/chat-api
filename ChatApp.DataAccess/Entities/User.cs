@@ -1,9 +1,12 @@
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChatApp.DataAccess.Entities;
 
 [Table("users")]
+[Index(nameof(Username), IsUnique = true)]
+[Index(nameof(PhoneNumber), IsUnique = true)]
 public class User : BaseEntity
 {
     [Column("username")]
@@ -28,6 +31,6 @@ public class User : BaseEntity
 
     [Column("refresh_token_expire_date")]
     public DateTime? RefreshTokenExpireDate { get; set; }
-    
+
     public ICollection<Chat>? Chats { get; set; }
 }
