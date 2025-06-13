@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.API", "ChatApp.API\ChatApp.API.csproj", "{4E7BFDBD-4559-4ADD-9518-DD6D414EA7E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.DataAccess", "ChatApp.DataAccess\ChatApp.DataAccess.csproj", "{197D5B8C-48D3-4113-B9CB-5A06D671ACD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.BusinessLogic", "ChatApp.BusinessLogic\ChatApp.BusinessLogic.csproj", "{647ECE79-F68D-4F55-A86F-B1928F55B659}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.Shared", "ChatApp.Shared\ChatApp.Shared.csproj", "{43A5990C-7A87-49DB-9059-250ABF260F1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E7BFDBD-4559-4ADD-9518-DD6D414EA7E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E7BFDBD-4559-4ADD-9518-DD6D414EA7E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E7BFDBD-4559-4ADD-9518-DD6D414EA7E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E7BFDBD-4559-4ADD-9518-DD6D414EA7E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{197D5B8C-48D3-4113-B9CB-5A06D671ACD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{197D5B8C-48D3-4113-B9CB-5A06D671ACD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{197D5B8C-48D3-4113-B9CB-5A06D671ACD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{197D5B8C-48D3-4113-B9CB-5A06D671ACD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{647ECE79-F68D-4F55-A86F-B1928F55B659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{647ECE79-F68D-4F55-A86F-B1928F55B659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{647ECE79-F68D-4F55-A86F-B1928F55B659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{647ECE79-F68D-4F55-A86F-B1928F55B659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43A5990C-7A87-49DB-9059-250ABF260F1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A5990C-7A87-49DB-9059-250ABF260F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A5990C-7A87-49DB-9059-250ABF260F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A5990C-7A87-49DB-9059-250ABF260F1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
