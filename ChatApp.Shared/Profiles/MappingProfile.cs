@@ -11,6 +11,7 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         this.CreateMap<User, UserModel>();
+        this.CreateMap<User, UserDetailsModel>();
         this.CreateMap<Chat, ChatModel>();
         this.CreateMap<ChatModel, Chat>();
         this.CreateMap<Message, MessageModel>();

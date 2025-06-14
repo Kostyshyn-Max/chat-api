@@ -6,6 +6,7 @@ using AutoMapper;
 using ChatApp.BusinessLogic.Interfaces;
 using ChatApp.DataAccess.Entities;
 using ChatApp.DataAccess.Interfaces;
+using ChatApp.Shared.Models.Chat;
 using ChatApp.Shared.Models.User;
 using Microsoft.Extensions.Configuration;
 
@@ -124,5 +125,23 @@ public class UserService : IUserService
         DateTime expireDate = DateTime.UtcNow.AddDays(int.Parse(_configuration["JWT:RefreshTokenExpirationDays"] ?? "7"));
         var result = await _userRepository.SetRefreshToken(userId, refreshToken, expireDate);
         return result ? refreshToken : null;
+    }
+
+    public async Task<UserModel?> GetUserByIdAsync(Guid id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        if (user is null)
+        {
+            return null;
+        }
+
+        var mappedUser = _mapper.Map<UserModel>(user);
+        return mappedUser;
+    }
+
+    public async Task<UserModel?> GetUserByUsernameAsync(string username)
+    {
+        var user = (await _userRepository.GetAllAsync(u => u.Username.Equals(username))).FirstOrDefault();
+        return user is null ? null : _mapper.Map<UserModel>(user);
     }
 }

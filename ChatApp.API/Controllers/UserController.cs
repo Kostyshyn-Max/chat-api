@@ -2,6 +2,7 @@ using ChatApp.BusinessLogic.Interfaces;
 using ChatApp.Shared.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ChatApp.API.Controllers;
 
@@ -65,5 +66,21 @@ public class UserController : ControllerBase
         }
         
         return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("me")]
+    [Authorize]
+    [ProducesResponseType<UserModel>(StatusCodes.Status200OK)]
+    public async Task<ActionResult<UserModel>> GetMyProfileAsync()
+    {
+        Guid userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
+        var user = await _userService.GetUserByIdAsync(userId);
+        if (user is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(user);
     }
 }
