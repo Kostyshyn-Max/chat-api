@@ -1,3 +1,5 @@
+using ChatApp.API.Hubs;
+using ChatApp.API.Utils;
 using ChatApp.BusinessLogic.Interfaces;
 using ChatApp.BusinessLogic.Services;
 using ChatApp.DataAccess.EF;
@@ -5,6 +7,7 @@ using ChatApp.DataAccess.Interfaces;
 using ChatApp.DataAccess.Repositories;
 using ChatApp.Shared.Profiles;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -31,12 +34,11 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Chat API", Version = "v1" });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
+        Description = "JWT Authorization header using the Bearer scheme. Example: 'Bearer {token}'",
         Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Enter 'Bearer' followed by a space and your JWT token.",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -78,12 +80,20 @@ builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
+
+builder.Services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
+
+builder.Services.AddSignalR()
+    .AddHubOptions<ChatHub>(options => {
+    });
+
 
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policyBuilder =>
         policyBuilder
-            .WithOrigins("http://localhost:5173")
+            .WithOrigins("http://localhost:5173", "https://mango-pond-08b89171e.2.azurestaticapps.net")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
@@ -93,11 +103,8 @@ var app = builder.Build();
 
 app.UseCors();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseRouting();
 
@@ -105,6 +112,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHub<ChatHub>("/chathub").RequireAuthorization();
 
 app.MapControllers();
 
